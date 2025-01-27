@@ -1,0 +1,225 @@
+body {
+    color : rgb(23, 65, 3);
+    background-color: rgb(203, 241, 202);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 2.6dvh;
+}
+.highlight {
+    background-color: rgb(228, 224, 0);
+    color: rgb(4, 125, 196);
+    font-weight: bold;
+    padding: 0 15px;
+    border-radius: 3px;
+    font-size: 16px;
+}
+.safe {
+    color:rgb(49, 218, 49);
+    font-weight: bold;
+    font-size: 14px;
+}
+.danger {
+    color: rgb(180, 7, 7);
+    font-weight: bold;
+    font-size: 14px;
+}
+.might {
+    color: orange;
+    font-weight: bold;
+    font-size: 14;
+}
+.location {
+    color: rgb(10, 90, 3);
+    font-weight: bold;
+    font-size: 14px;
+}
+.latlon {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 14px;
+}
+.map-switch {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1000; /* Đảm bảo nằm trên map */
+    background: rgba(255, 255, 255, 0.9); /* Nền trắng mờ để không làm mất hoàn toàn map */
+    padding: 6.5px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    pointer-events: auto; /* Đảm bảo các sự kiện trên .map-switch được kích hoạt */
+}
+
+.map-switch button {
+    padding: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 3px;
+    font-size: 16px;
+    border: none;
+    pointer-events: auto; /* Đảm bảo các sự kiện click hoạt động trên button */
+}
+
+#googleMapButton {
+    background-image: url('pictures/1road.png');
+    background-size: contain; /* Đảm bảo hình ảnh không bị kéo dãn */
+    background-repeat: no-repeat; /* Hình ảnh không lặp lại */
+    background-position: center;
+}
+
+#esriTopoButton {
+    background-image: url('pictures/1mountain.png');
+    background-size: contain; /* Đảm bảo hình ảnh không bị kéo dãn */
+    background-repeat: no-repeat; /* Hình ảnh không lặp lại */
+    background-position: center;
+}
+
+#esriImageryLayer {
+    background-image: url('pictures/1globe.png');
+    background-size: contain; /* Đảm bảo hình ảnh không bị kéo dãn */
+    background-repeat: no-repeat; /* Hình ảnh không lặp lại */
+    background-position: center;
+}
+.popup {
+    position: fixed;
+    bottom: -100%; /* Trượt từ dưới */
+    left: 0;
+    width: 100vw;
+    height: 40vh;
+    background-color: transparent; /* Nền mờ */
+    display: none;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 1000; /* Đảm bảo nằm trên cùng */
+    transition: bottom 0.3s ease-in-out;
+    overflow: hidden;
+}
+#popupContent {
+    background: #adf1b6;
+    width: 100%; /* Hạn chế chiều cao của nội dung */
+    max-height: 40vh;
+    border-radius: 16px 16px 0 0; /* Bo góc trên */
+    overflow-y: auto; /* Bật cuộn nội dung */
+    padding: 20px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+.popup-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000; /* Đảm bảo nằm trên map */
+    background: rgba(255, 255, 255, 0.9); /* Nền trắng mờ để không làm mất hoàn toàn map */
+    padding: 6.5px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    pointer-events: auto; /* Đảm bảo các sự kiện trên .map-switch được kích hoạt */
+}
+
+.popup-button button {
+    padding: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 3px;
+    font-size: 16px;
+    border: none;
+    pointer-events: auto; /* Đảm bảo các sự kiện click hoạt động trên button */
+}
+.openPopup {
+    background-image: url('pictures/1search.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.tooltip-text {
+    visibility: hidden;
+    width: 100px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: absolute;
+    right: 0%; /* Adjust to position above the button */
+    transform: translateX(-50%);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .popup-button:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+  .current {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000; /* Đảm bảo nằm trên map */
+    background: rgba(255, 255, 255, 0.9); /* Nền trắng mờ để không làm mất hoàn toàn map */
+    padding: 6.5px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    pointer-events: auto; /* Đảm bảo các sự kiện trên .map-switch được kích hoạt */
+}
+
+   .current button {
+    padding: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 3px;
+    font-size: 16px;
+    border: none;
+    pointer-events: auto; /* Đảm bảo các sự kiện click hoạt động trên button */
+}
+   .teleport {
+    background-image: url('pictures/1location.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.tooltip-text1 {
+    visibility: hidden;
+    width: 125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: absolute;
+    left: 275%; /* Adjust to position above the button */
+    transform: translateX(-50%);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+  #latitude2 {
+    visibility: hidden;
+}
+  #longitude2 {
+    visibility: hidden;
+}
+.map-content {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    z-index: 1000; /* Đảm bảo nằm trên map */
+    background: rgba(255, 255, 255, 0.9); /* Nền trắng mờ để không làm mất hoàn toàn map */
+    padding: 6.5px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    pointer-events: auto; /* Đảm bảo các sự kiện trên .map-switch được kích hoạt */
+}
+.map-content button {
+    padding: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 3px;
+    font-size: 16px;
+    border: none;
+    pointer-events: auto; /* Đảm bảo các sự kiện click hoạt động trên button */
+}
+#e-s {
+    background-image: url('pictures/1location.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
